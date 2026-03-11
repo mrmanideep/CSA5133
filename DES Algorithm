@@ -1,0 +1,20 @@
+def encrypt(text, key):
+    encrypted = ""
+    for i in range(len(text)):
+        encrypted += chr(ord(text[i]) ^ ord(key[i % len(key)]))
+    return encrypted
+
+def decrypt(cipher, key):
+    decrypted = ""
+    for i in range(len(cipher)):
+        decrypted += chr(ord(cipher[i]) ^ ord(key[i % len(key)]))
+    return decrypted
+
+plaintext = "HELLODES"
+key = "KEY"
+
+encrypted_text = encrypt(plaintext, key)
+print("Encrypted (ASCII values):", [ord(i) for i in encrypted_text])
+
+decrypted_text = decrypt(encrypted_text, key)
+print("Decrypted:", decrypted_text)
