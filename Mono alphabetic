@@ -1,0 +1,27 @@
+import string
+
+def monoalphabetic_cipher():
+    
+    alphabet = string.ascii_uppercase
+    key = "QWERTYUIOPASDFGHJKLZXCVBNM"
+    encrypt_map = dict(zip(alphabet, key))
+    decrypt_map = dict(zip(key, alphabet))
+    
+    def encrypt(plaintext):
+    
+        return ''.join(encrypt_map.get(char, char) for char in plaintext.upper())
+
+    def decrypt(ciphertext):
+        return ''.join(decrypt_map.get(char, char) for char in ciphertext.upper())
+    
+    msg = input("Enter the message: ")
+    
+    encrypted = encrypt(msg)
+    decrypted = decrypt(encrypted)
+    
+    print(f"\nOriginal Message: {msg}")
+    print(f"Encrypted (Ciphertext): {encrypted}")
+    print(f"Decrypted (Plaintext): {decrypted}")
+
+if __name__ == "__main__":
+    monoalphabetic_cipher()
