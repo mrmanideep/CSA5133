@@ -1,0 +1,48 @@
+# Generate repeating key
+def generate_key(text, key):
+    key = key.upper()
+    key_list = list(key)
+    
+    if len(text) > len(key):
+        for i in range(len(text) - len(key)):
+            key_list.append(key_list[i % len(key)])
+    
+    return "".join(key_list)
+
+
+# Encryption
+def encrypt(text, key):
+    text = text.upper().replace(" ", "")
+    key = generate_key(text, key)
+    
+    cipher = ""
+    
+    for i in range(len(text)):
+        x = (ord(text[i]) - 65 + ord(key[i]) - 65) % 26
+        cipher += chr(x + 65)
+    
+    return cipher
+
+
+# Decryption
+def decrypt(cipher, key):
+    key = generate_key(cipher, key)
+    
+    plain = ""
+    
+    for i in range(len(cipher)):
+        x = (ord(cipher[i]) - 65 - (ord(key[i]) - 65)) % 26
+        plain += chr(x + 65)
+    
+    return plain
+
+
+# Main Program
+text = input("Enter Message: ")
+key = input("Enter Key: ")
+
+cipher = encrypt(text, key)
+print("Encrypted:", cipher)
+
+plain = decrypt(cipher, key)
+print("Decrypted:", plain)
