@@ -1,0 +1,51 @@
+def generate_key(message, key):
+    key = key.upper()
+    message = message.upper()
+    
+    key_list = list(key)
+    
+    # Repeat key to match message length
+    if len(message) > len(key_list):
+        for i in range(len(message) - len(key_list)):
+            key_list.append(key_list[i % len(key)])
+    
+    return "".join(key_list)
+
+
+def encrypt(message, key):
+    message = message.upper().replace(" ", "")
+    key = generate_key(message, key)
+    
+    cipher_text = ""
+    
+    for i in range(len(message)):
+        if message[i].isalpha():
+            x = (ord(message[i]) - 65 + ord(key[i]) - 65) % 26
+            cipher_text += chr(x + 65)
+    
+    return cipher_text
+
+
+def decrypt(cipher_text, key):
+    cipher_text = cipher_text.upper()
+    key = generate_key(cipher_text, key)
+    
+    original_text = ""
+    
+    for i in range(len(cipher_text)):
+        if cipher_text[i].isalpha():
+            x = (ord(cipher_text[i]) - 65 - (ord(key[i]) - 65)) % 26
+            original_text += chr(x + 65)
+    
+    return original_text
+
+
+# Main Program
+message = input("Enter Message: ")
+key = input("Enter Key: ")
+
+cipher = encrypt(message, key)
+print("Encrypted:", cipher)
+
+plain = decrypt(cipher, key)
+print("Decrypted:", plain)
