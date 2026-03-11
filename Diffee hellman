@@ -1,0 +1,22 @@
+P = 23  
+G = 5   
+
+a = 4   
+b = 3   
+
+print(f"Publicly Shared keys are - P={P}, G={G}\n")
+
+public_sender = (G ** a) % P
+public_receiver = (G ** b) % P
+
+print(f"Sender's Public Key (A): {public_sender}")
+print(f"Receiver's Public Key (B): {public_receiver}\n")
+
+shared_secret_sender = (public_receiver ** a) % P
+shared_secret_receiver = (public_sender ** b) % P
+
+print(f"Shared Secret is  {shared_secret_sender}")
+print(f"Shared Secret is: {shared_secret_receiver}")
+
+if shared_secret_sender == shared_secret_receiver:
+    print("\n share the same secret key.")
